@@ -15,4 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag linux-kernel-reading-lib:$(date +%s)
+      run: docker build . --file Dockerfile --tag yikesdocker/linux-kernel-reading-lib:1.0.0
+      
+    - name: Log into registry
+      run: echo "${{ secrets.ACCESS_TOKEN }}" | docker login -u yikesdocker --password-stdin
+    - name: push to dockerhub
+      run: |
+        docker push yikesdocker/linux-kernel-reading-lib:1.0.0
+
